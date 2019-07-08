@@ -24,6 +24,7 @@ section {
 }
 
 .product-name {
+	display: block;
 	float: left;
 	margin-top: 30px;
 }
@@ -148,6 +149,7 @@ section {
 	border: none;
 	border-radius: 7px;
 	box-shadow: rgb(255, 255, 255) 0 -5px 0;
+	cursor: pointer;
 }
 
 .turquoise-btn {
@@ -168,6 +170,7 @@ section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	text-decoration: none;
 }
 
 .about-item:nth-child(2n+1){
@@ -197,7 +200,7 @@ section {
 	text-transform: uppercase;
 }
 
-.headline-services-block {
+.headline {
 	margin-top: 82px;
 	margin-bottom: 40px;
 	color: #4e4e4e;
@@ -206,9 +209,10 @@ section {
 }
 
 .blue-stick {
+	margin: 0 auto;
 	width: 76px;
 	display: inline-block;
-	border: 0.7px solid #18cfab;
+	border: 0.5px solid #18cfab;
 	box-shadow: #18cfab -10px -5px 0px;
 }
 
@@ -225,7 +229,9 @@ section {
 }
 
 .tabs-title {
-    padding: 20px;
+	width: 192px;
+	padding: 27px 0px;
+	text-align: center;
     background-color: #fff;
     color: #717171;
 	cursor: pointer;
@@ -233,6 +239,11 @@ section {
 }
 
 .tabs-title:hover {
+	background-color: #18cfab;
+	color: #fff;
+}
+
+.active {
 	background-color: #18cfab;
 	color: #fff;
 }
@@ -252,15 +263,14 @@ section {
 }
 
 .arrow-down {
+	display: inline-block;
 	position: relative;
 
-	top: 30px;
+	top: 40px;
+	right: 60px;
 
-	width: 0; 
-	height: 0; 
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
-	
 	border-top: 10px solid #18cfab;
 }
 
@@ -289,6 +299,179 @@ section {
 .buy-text {
 	color: #d8d8d8;
 	margin-bottom: 76px;
+}
+
+.sort-photo-block {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 1212px;
+	background-color:#f8fcfe;
+	border-bottom: 1px solid #e1e1e1;
+}
+
+#bar-menu {
+	display: flex;
+	padding: 70px 250px;
+}
+
+.bar-menu-item:first-child {
+	width: 13px;
+	padding: 24px 29px;
+	text-align: center;
+	font-size: 12px;
+    background-color: #fff;
+    color: #717171;
+	cursor: pointer;
+	border: 1px solid #ebecec;
+}
+
+.bar-menu-item:not(:first-child) {
+	width: 96px;
+	padding: 24px 25px;
+	text-align: center;
+	font-size: 12px;
+    background-color: #fff;
+    color: #717171;
+	cursor: pointer;
+	border: 1px solid #ebecec;
+}
+
+.bar-menu-item.active-item{
+	border-top: 3px solid #18cfab;
+}
+
+.bar-menu-content-wrap {
+	min-height: 620px;
+}
+
+.bar-menu-content-wrap > li {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.bar-menu-content-wrap > li > img:hover { /* it was too late create class*/
+	
+}
+
+.breaking-news-block {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.ml535 {
+	margin-left: 535px;
+}
+
+.breaking-news-content {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 70px;
+	margin-bottom: 132px;
+}
+
+.brk-news-item{
+	border: 1px solid #f6f6f6e3;
+	margin-right: 30px;
+	margin-bottom: 30px;
+}
+
+.brk-news-item:hover .data {
+	background-color: #18cfab;
+}
+
+.brk-news-item:hover .news-title {
+	color: #18cfab;
+}
+
+.brk-news-item:nth-child(4n) {
+	margin-right: 0;
+}
+
+
+.news-background {
+	width: 263px;
+    height: 208px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.image-bg{
+	background-image: url(/img/news/image-bg.png)
+}
+
+.fire-bg{
+	background-image: url(/img/news/fire-bg.png)
+}
+
+.rock-bg{
+	background-image: url(/img/news/rock-bg.png)
+}
+
+.blog-bg{
+	background-image: url(/img/news/blog-bg.png)
+}
+
+.sea-bg{
+	background-image: url(/img/news/sea-bg.png)
+}
+
+.forest-bg{
+	background-image: url(/img/news/forest-bg.png)
+}
+
+.travelling-bg{
+	background-image: url(/img/news/travelling-bg.png)
+}
+
+.work-bg{
+	background-image: url(/img/news/work-bg.png)
+}
+
+.data {
+	display: inline-block;
+	width: 68px;
+	height: 66px;
+	margin-left: 195px;
+	background-color: #203e38;
+	color: #fff;
+	text-align: center;
+	padding: 18px;
+	box-sizing: border-box;
+}
+
+.brk-news-item > p{
+	background-color: grey;
+}
+
+.brk-news-arcticle {
+	padding: 15px;
+	background-color: #f8fcfe;
+}
+
+.news-title {
+	font-weight: 700;
+	font-size: 18px;
+	margin-bottom: 15px;
+	color: #b9bbbc;
+}
+
+.news-title:after {
+	content: "|";
+	position: relative;
+	display: inline-block;
+	top: 31px;
+	left: -95px;
+	font-weight: 400;
+}
+
+.news-paragraph {
+	color: #abacad;
+}
+
+.comment {
+	margin-left: 20px;
 }
 
 .turquoise-text {
