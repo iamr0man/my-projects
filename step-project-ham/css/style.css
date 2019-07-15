@@ -285,7 +285,7 @@ section {
 .buy-block {
 	background: linear-gradient(rgba(0, 0, 0, 0.8),
 			rgba(0, 0, 0, 0.8)),
-		url(/img/Sections-background/section-2.jpg) 0 50%;
+		url(/step-project-ham/img/Sections-background/section-2.jpg) 0 50%;
 	background-attachment: fixed;
 	background-size: cover;
 }
@@ -452,35 +452,35 @@ section {
 }
 
 .image-bg {
-	background-image: url(/img/news/image-bg.png)
+	background-image: url(/step-project-ham/img/news/image-bg.png)
 }
 
 .fire-bg {
-	background-image: url(/img/news/fire-bg.png)
+	background-image: url(/step-project-ham/img/news/fire-bg.png)
 }
 
 .rock-bg {
-	background-image: url(/img/news/rock-bg.png)
+	background-image: url(/step-project-ham/img/news/rock-bg.png)
 }
 
 .blog-bg {
-	background-image: url(/img/news/blog-bg.png)
+	background-image: url(/step-project-ham/img/news/blog-bg.png)
 }
 
 .sea-bg {
-	background-image: url(/img/news/sea-bg.png)
+	background-image: url(/step-project-ham/img/news/sea-bg.png)
 }
 
 .forest-bg {
-	background-image: url(/img/news/forest-bg.png)
+	background-image: url(/step-project-ham/img/news/forest-bg.png)
 }
 
 .travelling-bg {
-	background-image: url(/img/news/travelling-bg.png)
+	background-image: url(/step-project-ham/img/news/travelling-bg.png)
 }
 
 .work-bg {
-	background-image: url(/img/news/work-bg.png)
+	background-image: url(/step-project-ham/img/news/work-bg.png)
 }
 
 .data {
@@ -530,7 +530,7 @@ section {
 
 .client-feedback-block {
 	background: linear-gradient(rgba(0, 0, 0, 0.4),
-			rgba(0, 0, 0, 0.4)), url('/img/Sections-background/section-3.jpg');
+			rgba(0, 0, 0, 0.4)), url('/step-project-ham/img/Sections-background/section-3.jpg');
 	background-position: 0 50%;
 	background-size: cover;
 	background-attachment: fixed;
