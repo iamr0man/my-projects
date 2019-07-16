@@ -66,9 +66,8 @@ $('.bar-menu-content-wrap > li > div').mouseleave(function () {
 $('.client-carusel').slick({
     infinite: false,
     slidesToShow: 4,
-    speed: 300
+    speed: 600
 })
-
 
 const clientFeedback = ['Extraordinary professional! It has been an honor to work with some-one of her calibre. She is deliberate with her marketing tactics and implements with great attention to every detail. For me, one of her most important skill sets is her ability to self manage and keep our projects  moving forward no matter my availability or the lack thereof. No worries once you have agreed on a gameplan and a course of action',
     'Diana puts her heart and soul into her work. She gives you everything she’s got when she gets into a project. I am humbled to have worked with some-one of such high integrity and so committed to our mutual success. A truly great business partner.',
@@ -79,7 +78,6 @@ const clientFeedback = ['Extraordinary professional! It has been an honor to wor
 
 let client_index = 2;
 $('.img-client').click(function (e) {
-    // debugger;
     $('.img-client').eq(client_index).removeClass('img-client-active');
     $(e.target).addClass('img-client-active');
 
@@ -88,4 +86,49 @@ $('.img-client').click(function (e) {
     $('.client-name').text(e.target.dataset.name)
     $('.client-position').text(e.target.dataset.pos)
     $('.client-photo > img').attr('src', $(e.target).attr('src'));
+});
+
+let $currentClient = $('.img-client').eq(client_index);
+$('.slick-next').click(function (e) {
+    if (client_index < 4) {
+        $('.img-client').eq(client_index).removeClass('img-client-active');
+        $('.img-client').eq(++client_index).addClass('img-client-active');
+
+        $('.client-feedback-msg').text(clientFeedback[client_index]);
+        $('.client-name').text($('.img-client').eq(client_index).attr('data-name'))
+        $('.client-position').text($('.img-client').eq(client_index).attr('data-pos'))
+        $('.client-photo > img').attr('src', $('.img-client').eq(client_index).attr('src'));
+    }
+});
+
+$('.slick-prev').click(function (e) {
+    if (client_index > 0) {
+        $('.img-client').eq(client_index).removeClass('img-client-active');
+        $('.img-client').eq(--client_index).addClass('img-client-active');
+
+        $('.client-feedback-msg').text(clientFeedback[client_index]);
+        $('.client-name').text($('.img-client').eq(client_index).attr('data-name'))
+        $('.client-position').text($('.img-client').eq(client_index).attr('data-pos'))
+        $('.client-photo > img').attr('src', $('.img-client').eq(client_index).attr('src'));
+    }
+});
+
+$('.slick-arrow').click(function(e){
+    if(client_index == 0) { //for click on the button
+        $('.slick-prev').css('opacity', '.25');
+    } else if(client_index == 4){
+        $('.slick-next').css('opacity', '.25');
+    }else {
+        $('.slick-arrow').css('opacity', '1')
+    }
+})
+
+$('.img-client').click(function(e){
+    if(client_index == 0 ) { //for click on the img
+        $(".slick-prev").css('opacity', '.25');
+    } else if(client_index == 4){
+        $(".slick-nrext").css('opacity', '.25');
+    }else {
+        $('.slick-arrow').css('opacity', '1')
+    }
 })
