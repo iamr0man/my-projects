@@ -1,0 +1,84 @@
+
+
+.container{
+    padding: 0 10px;
+    min-width: 320px;
+    max-width: 100%;
+    background-color: #27262a;
+   
+}
+.header{
+    padding: 20px 0 ;
+    position: relative;
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
+    align-items: center;
+    &__logo{
+        margin-left: 3%;
+        background-image: url(../img/header_logo.png);
+        width: 43px;
+        height: 41px;
+        vertical-align: middle;
+    }
+    &__button{
+        border-radius: 50px ;
+        background-color: #8d81ac;
+        color: white;
+        padding: 12px 25px;
+        vertical-align: middle;
+    }
+    &__navBar{
+        margin-right: 3%;
+        vertical-align: middle; 
+        &_toggle{
+            .line{
+                display: block;
+                background-color: #fff;
+                width: 26px;
+                height: 2px;
+                margin-bottom: 6px;
+                border-radius: 5px;
+                &_short{
+                    width: 21px;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+    &__menu{
+        position: absolute;
+        background-color: #333333;
+        left: 5%;
+        right: 5%;
+        width: 90%;
+        top:80px;
+        display: flex;
+        flex-direction: column;
+        display: none;
+        &_items{
+            display: block;
+            color: white;
+            font-size: 20px;
+            border-bottom: 2px solid #3b3b3b;
+            padding: 23px 0 36px 33px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        &_items_block::before{
+            position: absolute;
+            content: "";
+            left: 0;
+            width: 8px;
+            height: 53px;
+            top: 10%;
+            background-color: #8d81ac;
+        }
+        &_items:hover{
+            color: rgba(141, 129, 172, 255);
+        }
+
+    }
+
+}
+
