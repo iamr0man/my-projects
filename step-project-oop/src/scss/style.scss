@@ -1,4 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 $modalColor: #428bca; //need to remove in future
+
+@mixin centred {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .wrapper {
     background-image: url(../img/wrapper-bg.jpg);
@@ -11,7 +19,7 @@ $modalColor: #428bca; //need to remove in future
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
+    font-family: 'Roboto', sans-serif;
 
     .modal {
         display: none;
@@ -44,13 +52,28 @@ $modalColor: #428bca; //need to remove in future
         color: #fff;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+
+        h2 {
+            display: inline-block;
+        }
     }
 
     .modal-body {
-        padding: 10px 20px;
-        background-image: url(../img/modal-bg.png);
-        background-repeat: no-repeat;
-        background-size: cover;
+        padding: 20px 20px;
+        background: #fff;
+
+        #form-inputs {
+            margin: 20px 0;
+
+            li {
+                display: none;
+
+                input {
+                    display: block;
+                    margin: 10px 0;
+                }
+            }
+        }
     }
 
     .modal-footer {
@@ -87,8 +110,11 @@ $modalColor: #428bca; //need to remove in future
     }
 }
 
-#modal-btn{
-    vertical-align: top;
+#modal-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background-image: url(../img/modal-bg.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -99,9 +125,15 @@ $modalColor: #428bca; //need to remove in future
     margin-top: 40px;
     cursor: pointer;
 
-
+    span {
+        padding: 20px 30px;
+        border: 3px solid #000;
+        font-size: 24px;
+        text-transform: uppercase;
+    }
 }
-.main-block{
+
+.main-block {
     vertical-align: top;
     background-image: url(../img/main-bg.png);
     background-repeat: no-repeat;
@@ -109,14 +141,14 @@ $modalColor: #428bca; //need to remove in future
     width: 820px;
     height: 900px;
     margin: 20px 30px;
-    box-shadow: -8px 7px 5px 6px rgba(0,0,0,.5);
+    box-shadow: -8px 7px 5px 6px rgba(0, 0, 0, .5);
 }
-.logo{
+
+.logo {
     background-image: url(../img/logo.png);
     background-repeat: no-repeat;
     background-size: contain;
     width: 250px;
-    height:250px;
+    height: 250px;
     cursor: pointer;
-
 }

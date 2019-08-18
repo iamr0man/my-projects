@@ -12,16 +12,48 @@
 <body>
     <div class="wrapper">
         <div class="logo"></div>
-        <div id="modal-btn">create visit</div>
+        <div id="modal-btn"><span>create visit</span></div>
         <div class="main-block"></div>
         <div id="visit-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h2>Create Visit</h2>
                     <span class="close">&times;</span>
-                    <h2>Modal Header</h2>
                 </div>
                 <div class="modal-body">
-                    <p>This is my modal</p>
+                    <form action="">
+                        <select name="doctors" id="list-of-doctors">
+                            <option selected disabled>Choose doctor</option>
+                            <option value="cardiologist">Cardiologist</option>
+                            <option value="dentist">Dentist</option>
+                            <option value="therapist">Therapist</option>
+                        </select>
+                    </form>
+                    <ul id="form-inputs">
+                        <li>
+                            <input type="text" id="target" placeholder="Target">
+                            <input type="text" id="date" placeholder="Date">
+                            <input type="text" id="fullName" placeholder="Full Name">
+                            <input type="text" id="pressure" placeholder="Pressure">
+                            <input type="text" id="iWeight" placeholder="Index Weight">
+                            <input type="text" id="age" placeholder="Age">
+                            <textarea name="" id="" cols="50" rows="10" maxlength="400"></textarea>
+                        </li>
+                        <li>
+                            <input type="text" id="target" placeholder="Target">
+                            <input type="text" id="date" placeholder="Date">
+                            <input type="text" id="fullName" placeholder="Full Name">
+                            <input type="text" id="dataLastVisit" placeholder="Last Visit">
+                            <textarea name="" id="" cols="50" rows="10" maxlength="400"></textarea>
+                        </li>
+                        <li>
+                            <input type="text" id="target" placeholder="Target">
+                            <input type="text" id="date" placeholder="Date">
+                            <input type="text" id="fullName" placeholder="Full Name">
+                            <input type="text" id="age" placeholder="Age">
+                            <textarea name="" id="" cols="50" rows="10" maxlength="400"></textarea>
+                        </li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <div>Create</div>
@@ -29,7 +61,7 @@
             </div>
         </div>
     </div>
-    <script src='dist/js/index.js'></script>
+    <script src='src/js/index.js'></script>
 </body>
 
 </html>
