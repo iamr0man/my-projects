@@ -46,7 +46,8 @@ function scripts(){
             .pipe(browserSync.stream());
 };
 function fonts(){
-    return gulp.src("src/font/**/*.*");
+    return gulp.src("src/font/**/*.*")
+    .pipe(gulp.dest('dist/font/'));
 }
 
 function clean(){
