@@ -9,6 +9,7 @@ const cleanCSS = require('gulp-clean-css');
 const del = require('del');
 const imagemin = require('gulp-imagemin');
 
+
 const scssFiles = [
     './node_modules/node-normalize-scss/_normalize.scss',
     'src/scss/**/*.scss'
@@ -44,6 +45,10 @@ function scripts(){
             .pipe(gulp.dest('dist/js/'))
             .pipe(browserSync.stream());
 };
+function fonts(){
+    return gulp.src("src/font/**/*.*")
+    .pipe(gulp.dest('dist/font/'));
+}
 
 function clean(){
     return del(['dist/*']);
@@ -60,12 +65,12 @@ function watch(){
     gulp.watch('src/js/**/*.js', scripts);
     gulp.watch('*.html').on('change', browserSync.reload);
 };
-
+gulp.task('fonts', fonts);
 gulp.task('styles', styles);
 gulp.task('images', images);
 gulp.task('scripts', scripts);
 gulp.task('watch', watch);
 
 gulp.task('default', gulp.series('watch'));
-gulp.task('build', gulp.series(clean, 'styles', 'scripts', 'images'));
+gulp.task('build', gulp.series(clean, 'styles', 'scripts', 'images', 'fonts'));
 gulp.task('dev', gulp.series('build', 'watch'));
