@@ -2,12 +2,16 @@
 const modal = document.querySelector('#visit-modal');
 const modalBtn = document.querySelector('#modal-btn');
 const closeBtn = document.querySelector('.close');
+const createBtn = document.querySelector('.modal-footer button');
+const mainBlock = document.querySelector('.main-block');
+
+
 
 // Events
 modalBtn.addEventListener('click', openModal);
 closeBtn.addEventListener('click', closeModal);
 window.addEventListener('click', outsideClick);
-
+createBtn.addEventListener('click', createVisit);
 // Open
 function openModal() {
     modal.style.display = 'block';
@@ -24,6 +28,37 @@ function outsideClick(e) {
         modal.style.display = 'none';
     }
 }
+// Click on create 
+
+function createVisit(){
+    closeModal();
+    document.querySelector(".main-block span").style.display = "none";
+    
+    let createdElem = document.createElement("div");
+    createdElem.classList.add("created-elements");
+    mainBlock.appendChild(createdElem);
+    
+    for(let i=0 ;i<listOfInputs.children.length; i++ ){
+        if(listOfInputs.children[i].style.display == "block"){
+        for(let k=0; k<listOfInputs.children[i].children.length;k++){
+            createdElem.insertAdjacentHTML("beforeEnd", `<p>${listOfInputs.children[i].children[k].placeholder}:${listOfInputs.children[i].children[k].value}</p>` );
+                        console.log(listOfInputs.children[i].children[k].value);
+
+        }
+
+        }
+
+    }
+
+    createdElem.style.display = "flex";
+
+}
+
+
+
+
+
+
 
 class Visit {
     constructor(target, date, fullName){
@@ -75,12 +110,4 @@ function showEntry(e){
     
     index = nodes.indexOf(doc[0]) - 1;
     listOfInputs.children[index].style.display = 'block';
-}
-
-const createBtn = document.getElementsByClassName('.modal-footer');
-
-createBtn.addEventListener('click', createVisit);
-
-function createVisit(){
-    
 }

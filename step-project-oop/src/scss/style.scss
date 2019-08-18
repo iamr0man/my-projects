@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url(font/jellyka_saint-andrew_s_queen/stylesheet.css);
 
 $modalColor: #428bca; //need to remove in future
 
@@ -19,7 +20,12 @@ $modalColor: #428bca; //need to remove in future
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    font-family: 'Roboto', sans-serif;
+    align-content: baseline;
+    font-family: "Jellyka Saint-Andrew's Queen";
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: 30px;
 
     .modal {
         display: none;
@@ -67,7 +73,6 @@ $modalColor: #428bca; //need to remove in future
 
             li {
                 display: none;
-
                 input {
                     display: block;
                     margin: 10px 0;
@@ -99,6 +104,10 @@ $modalColor: #428bca; //need to remove in future
         cursor: pointer;
     }
 }
+textarea{
+    resize: none;
+    width: 80%;
+}
 
 @keyframes modalopen {
     from {
@@ -114,41 +123,65 @@ $modalColor: #428bca; //need to remove in future
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-image: url(../img/modal-bg.png);
     background-repeat: no-repeat;
     background-size: cover;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     transform: rotate(-17deg);
     margin-right: 50px;
     margin-top: 40px;
     cursor: pointer;
 
     span {
-        padding: 20px 30px;
-        border: 3px solid #000;
-        font-size: 24px;
+        font-size: 34px;
         text-transform: uppercase;
     }
 }
 
 .main-block {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
     vertical-align: top;
     background-image: url(../img/main-bg.png);
     background-repeat: no-repeat;
     background-size: cover;
     width: 820px;
-    height: 900px;
-    margin: 20px 30px;
+    height: 70%;
+    margin: 20px 30px 0;
     box-shadow: -8px 7px 5px 6px rgba(0, 0, 0, .5);
+    span{   
+        display: block;
+        margin-top: 40%;    
+        font-size: 40px;
+        text-align: center;
+        text-transform: uppercase;
+
+    }
 }
 
 .logo {
     background-image: url(../img/logo.png);
     background-repeat: no-repeat;
     background-size: contain;
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
     cursor: pointer;
+    margin: 40px;
 }
+.created-elements{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-size: 14px;
+    width: 200px;
+    height: 200px;
+    background-image: url(../img/modal-bg.png);
+    margin: 20px 0 0 40px;
+    display: none;
+}
+
+
