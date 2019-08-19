@@ -158,7 +158,8 @@ function deleteVisit(){
 }
 
 function  deleteVisBlock(e) {
-    console.dir(e.path[2]);
-    e.path[1].innerHTML = " ";
     e.path[1].style.display = "none";
+       if( e.path[1].style.display == "none"){
+        e.path[2].removeChild(e.path[1]);
+       }
 }
