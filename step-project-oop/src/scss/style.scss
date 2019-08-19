@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-@import url(../font/jellyka_saint-andrew_s_queen/stylesheet.css);
 
 $modalColor: #428bca; //need to remove in future
 
@@ -21,7 +20,7 @@ $modalColor: #428bca; //need to remove in future
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: baseline;
-    font-family: "Jellyka Saint-Andrew's Queen";
+    font-family: "Roboto";
     font-size: 14px;
     font-weight: bold;
     text-align: center;
@@ -181,6 +180,10 @@ textarea{
     height: 200px;
     background-image: url(../img/modal-bg.png);
     margin: 20px 0 0 40px;
+    display: none;
+}
+
+.created-elements > li  {
     display: none;
 }
 
