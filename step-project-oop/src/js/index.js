@@ -4,8 +4,7 @@ const modalBtn = document.querySelector('#modal-btn');
 const closeBtn = document.querySelector('.close');
 const createBtn = document.querySelector('.modal-footer button');
 const mainBlock = document.querySelector('.main-block');
-
-
+let btnShowMore;
 
 // Events
 modalBtn.addEventListener('click', openModal);
@@ -40,16 +39,21 @@ class Visit {
     }
 
     addCard() {
-        let createdElem = document.createElement("ul");
+        const createdElem = document.createElement("ul");
+
         createdElem.classList.add("created-elements");
         mainBlock.appendChild(createdElem);
+
         for (let [key, value] of Object.entries(this)) {
-            debugger
             const li = document.createElement('li');
             li.innerHTML = `${key}: ${value}`
             createdElem.appendChild(li);
         }
-        createdElem.children[2].style.display = 'block';
+        createdElem.children[2].style.display = 'block'; // show full name
+
+        const btn = addBtnShowMore();
+        createdElem.appendChild(btn);
+
         createdElem.style.display = "flex";
     }
 }
@@ -86,7 +90,7 @@ let index = 0;
 function createVisit() {
     closeModal();
     document.querySelector(".main-block span").style.display = "none";
-    
+
     const arr = [];
     let item = '';
 
@@ -111,8 +115,8 @@ function createVisit() {
     clearInputs();
 }
 
-function clearInputs(){
-    for(let i = 0; i < listOfInputs.children[index].children.length; i++){
+function clearInputs() {
+    for (let i = 0; i < listOfInputs.children[index].children.length; i++) {
         listOfInputs.children[index].children[i].value = '';
     }
 }
@@ -127,4 +131,19 @@ function showEntry(e) {
 
     index = nodes.indexOf(doc[0]) - 1;
     listOfInputs.children[index].style.display = 'block';
+}
+
+function addBtnShowMore() {
+    btnShowMore = document.createElement('p');
+    btnShowMore.setAttribute('id', 'show-more')
+    btnShowMore.innerText = "Show More";
+    btnShowMore.addEventListener('click', showMore);
+    return btnShowMore;
+}
+
+function showMore(e) {
+    const currentInputs = e.path[1].children;
+    for(let i = 0; i < currentInputs.length; i++){
+        currentInputs[i].style.display = 'block';
+    }
 }
