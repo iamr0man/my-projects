@@ -75,13 +75,14 @@ $modalColor: #428bca; //need to remove in future
             font-size: 40px;
             text-align: center;
             text-transform: uppercase;
+            margin-left: 10%;
 
         }
 
         .created-elements {
             display: flex;
             align-content: center;
-            justify-content: space-between;
+            justify-content: space-evenly;
             flex-direction: column;
             font-family: sans-serif;
             font-size: 14px;
@@ -90,9 +91,17 @@ $modalColor: #428bca; //need to remove in future
             background-image: url(../img/modal-bg.png);
             margin: 20px 0 0 40px;
             display: none;
-
+            position: relative;
             li {
                 display: none;
+            }
+            #delete-visit{
+                position: absolute;
+                top:0;
+                right: 0;
+                border: 20px solid transparent;
+                border-top: 20px solid black;
+                border-right: 20px solid black;
             }
         }
     }

@@ -53,7 +53,8 @@ class Visit {
 
         const btn = addBtnShowMore();
         createdElem.appendChild(btn);
-
+        const delBtn = deleteVisit();
+        createdElem.appendChild(delBtn);
         createdElem.style.display = "flex";
     }
 }
@@ -142,8 +143,22 @@ function addBtnShowMore() {
 }
 
 function showMore(e) {
+
     const currentInputs = e.path[1].children;
     for(let i = 0; i < currentInputs.length; i++){
         currentInputs[i].style.display = 'block';
     }
+}
+
+function deleteVisit(){
+    btnDelete = document.createElement('div');
+    btnDelete.setAttribute("id", "delete-visit");
+    btnDelete.addEventListener('click', deleteVisBlock);
+    return btnDelete;
+}
+
+function  deleteVisBlock(e) {
+    console.dir(e.path[2]);
+    e.path[1].innerHTML = " ";
+    e.path[1].style.display = "none";
 }
