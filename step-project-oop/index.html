@@ -14,10 +14,6 @@
         <a href="#" class="logo"></a>
         <div id="modal-btn"><span>create visit</span></div>
         <div class="main-block">
-            
-            <div class="created-elements"></div>
-
-
             <span>no items have been added</span>
         </div>
         <div id="visit-modal" class="modal">
@@ -37,14 +33,16 @@
                     </form>
                     <ul id="form-inputs">
                         <li>
-                            <input type="text" id="target" placeholder="Target">
-                            <input type="text" id="date" placeholder="Date">
-                            <input type="text" id="fullName" placeholder="Full Name">
-                            <input type="text" id="pressure" placeholder="Pressure">
-                            <input type="text" id="iWeight" placeholder="Index Weight">
-                            <input type="text" id="diseases" placeholder="diseases">
-                            <input type="text" id="age" placeholder="Age">
+                        <form>
+                            <input type="text" id="target" placeholder="Target" required>
+                            <input type="text" id="date" placeholder="Date" required>
+                            <input type="text" id="fullName" placeholder="Full Name" required>
+                            <input type="text" id="pressure" placeholder="Pressure" required>
+                            <input type="text" id="iWeight" placeholder="Index Weight" required>
+                            <input type="text" id="diseases" placeholder="diseases" required>
+                            <input type="text" id="age" placeholder="Age" required>
                             <textarea name="" id="" cols="50" rows="10" maxlength="400" placeholder="Add Comments"></textarea>
+                            </form>
                         </li>
                         <li>
                             <input type="text" id="target" placeholder="Target">

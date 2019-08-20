@@ -31,9 +31,13 @@ function getCards() {
 
         const btn = addBtnShowMore();
         createdElem.appendChild(btn);
-
+        const delBtn = deleteVisit();
+        createdElem.appendChild(delBtn);
         createdElem.style.display = "flex";
     })
+    if (mainBlock.children.length>1){
+        document.querySelector(".main-block span").style.display = "none";
+    }
 }
 
 // Events
@@ -86,7 +90,6 @@ class Visit {
         const delBtn = deleteVisit();
         createdElem.appendChild(delBtn);
         createdElem.style.display = "flex";
-        debugger;;
         storeCardInLocalStorage(createdElem.children);
     }
 }
@@ -122,17 +125,20 @@ function storeCardInLocalStorage(card) {
     let cards;
     if (localStorage.getItem('cards') === null) {
         cards = [];
+        
     } else {
+        
         cards = JSON.parse(localStorage.getItem('cards'))
     }
 
     const temp = [];
     for (let i = 0; i < card.length; i++) {
+        
         temp.push(card[i].textContent);
     }
 
     cards.push(temp);
-    localStorage.setItem('cards', JSON.stringify(cards))
+    localStorage.setItem(`cards`, JSON.stringify(cards))
 }
 
 let index = 0;
@@ -161,6 +167,7 @@ function createVisit() {
     Object.defineProperty(item, 'id', {
         enumerable: false
     });
+
     item.addCard();
     clearInputs();
 }
@@ -203,13 +210,19 @@ function showMore(e) {
 function deleteVisit(){
     btnDelete = document.createElement('div');
     btnDelete.setAttribute("id", "delete-visit");
+    btnDelete.innerText = "";
     btnDelete.addEventListener('click', deleteVisBlock);
+    return btnDelete;
 }
 
 function  deleteVisBlock(e) {
     e.path[1].style.display = "none";
+    localStorage.removeItem("cards");
+    
+    console.log(e);
        if( e.path[1].style.display == "none"){
         e.path[2].removeChild(e.path[1]);
     }
+    document.location.reload(true);
 }
 
