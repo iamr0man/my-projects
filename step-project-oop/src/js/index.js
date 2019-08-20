@@ -14,6 +14,7 @@ function getCards() {
         cards = [];
     } else {
         cards = JSON.parse(localStorage.getItem('cards'))
+        document.querySelector(".main-block span").style.display = "none";
     }
     cards.forEach(function (item) {
         const createdElem = document.createElement("ul");
@@ -31,13 +32,12 @@ function getCards() {
 
         const btn = addBtnShowMore();
         createdElem.appendChild(btn);
+
         const delBtn = deleteVisit();
         createdElem.appendChild(delBtn);
+
         createdElem.style.display = "flex";
     })
-    if (mainBlock.children.length>1){
-        document.querySelector(".main-block span").style.display = "none";
-    }
 }
 
 // Events
@@ -87,9 +87,11 @@ class Visit {
 
         const btn = addBtnShowMore();
         createdElem.appendChild(btn);
+        
         const delBtn = deleteVisit();
         createdElem.appendChild(delBtn);
         createdElem.style.display = "flex";
+        
         storeCardInLocalStorage(createdElem.children);
     }
 }
@@ -125,20 +127,17 @@ function storeCardInLocalStorage(card) {
     let cards;
     if (localStorage.getItem('cards') === null) {
         cards = [];
-        
     } else {
-        
         cards = JSON.parse(localStorage.getItem('cards'))
     }
 
     const temp = [];
     for (let i = 0; i < card.length; i++) {
-        
         temp.push(card[i].textContent);
     }
 
     cards.push(temp);
-    localStorage.setItem(`cards`, JSON.stringify(cards))
+    localStorage.setItem('cards', JSON.stringify(cards))
 }
 
 let index = 0;
@@ -199,7 +198,6 @@ function addBtnShowMore() {
 }
 
 function showMore(e) {
-
     const currentInputs = e.path[1].children;
     for (let i = 0; i < currentInputs.length; i++) {
         currentInputs[i].style.display = 'block';
@@ -207,7 +205,7 @@ function showMore(e) {
     e.path[1].removeChild(e.target);
 }
 
-function deleteVisit(){
+function deleteVisit() {
     btnDelete = document.createElement('div');
     btnDelete.setAttribute("id", "delete-visit");
     btnDelete.innerText = "";
@@ -215,14 +213,21 @@ function deleteVisit(){
     return btnDelete;
 }
 
-function  deleteVisBlock(e) {
+function deleteVisBlock(e) {
     e.path[1].style.display = "none";
-    localStorage.removeItem("cards");
-    
-    console.log(e);
-       if( e.path[1].style.display == "none"){
-        e.path[2].removeChild(e.path[1]);
+    const allCards = JSON.parse(localStorage.getItem("cards"));
+    const temp = [];
+    for(let i =0; i < e.path[1].children.length; i++){
+        temp.push(e.path[1].children[i].textContent);
     }
+    // debugger;
+    const current = allCards.filter((item, i) => {
+        JSON.stringify(item) === JSON.stringify(temp.slice(0, -2))
+        return i;
+    })
+
+    // if (e.path[1].style.display == "none") {
+    //     e.path[2].removeChild(e.path[1]);
+    // }
     document.location.reload(true);
 }
-
