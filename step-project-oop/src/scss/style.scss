@@ -75,6 +75,7 @@ $modalColor: #428bca; //need to remove in future
             font-size: 40px;
             text-align: center;
             text-transform: uppercase;
+            margin-left: 10%;
 
         }
 
@@ -90,9 +91,19 @@ $modalColor: #428bca; //need to remove in future
             background-image: url(../img/modal-bg.png);
             margin: 20px 0 0 40px;
             display: none;
-
+            position: relative;
+            box-shadow: 1px 1px 7px 4px rgba(0, 0, 0, .5);
             li {
                 display: none;
+            }
+            #delete-visit{
+                position: absolute;
+                cursor: pointer;
+                top:0;
+                right: 0;
+                border: 10px solid transparent;
+                border-top: 10px solid black;
+                border-right: 10px solid black;
             }
         }
     }
