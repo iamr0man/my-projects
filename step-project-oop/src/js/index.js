@@ -6,6 +6,36 @@ const createBtn = document.querySelector('.modal-footer button');
 const mainBlock = document.querySelector('.main-block');
 let btnShowMore;
 
+document.addEventListener('DOMContentLoaded', getCards);
+
+function getCards() {
+    let cards;
+    if (localStorage.getItem('cards') === null) {
+        cards = [];
+    } else {
+        cards = JSON.parse(localStorage.getItem('cards'))
+    }
+    cards.forEach(function (item) {
+        const createdElem = document.createElement("ul");
+
+        createdElem.classList.add("created-elements");
+        mainBlock.appendChild(createdElem);
+
+        for (let [key, value] of Object.entries(item)) {
+            const li = document.createElement('li');
+            li.innerHTML = `${value}`
+            createdElem.appendChild(li);
+        }
+
+        createdElem.children[2].style.display = 'block'; // show full name
+
+        const btn = addBtnShowMore();
+        createdElem.appendChild(btn);
+
+        createdElem.style.display = "flex";
+    })
+}
+
 // Events
 modalBtn.addEventListener('click', openModal);
 closeBtn.addEventListener('click', closeModal);
@@ -56,6 +86,8 @@ class Visit {
         const delBtn = deleteVisit();
         createdElem.appendChild(delBtn);
         createdElem.style.display = "flex";
+        debugger;;
+        storeCardInLocalStorage(createdElem.children);
     }
 }
 
@@ -84,6 +116,23 @@ class VisitToTherapist extends Visit {
         this.age = age;
         this.id = 2;
     }
+}
+
+function storeCardInLocalStorage(card) {
+    let cards;
+    if (localStorage.getItem('cards') === null) {
+        cards = [];
+    } else {
+        cards = JSON.parse(localStorage.getItem('cards'))
+    }
+
+    const temp = [];
+    for (let i = 0; i < card.length; i++) {
+        temp.push(card[i].textContent);
+    }
+
+    cards.push(temp);
+    localStorage.setItem('cards', JSON.stringify(cards))
 }
 
 let index = 0;
@@ -145,21 +194,22 @@ function addBtnShowMore() {
 function showMore(e) {
 
     const currentInputs = e.path[1].children;
-    for(let i = 0; i < currentInputs.length; i++){
+    for (let i = 0; i < currentInputs.length; i++) {
         currentInputs[i].style.display = 'block';
     }
+    e.path[1].removeChild(e.target);
 }
 
 function deleteVisit(){
     btnDelete = document.createElement('div');
     btnDelete.setAttribute("id", "delete-visit");
     btnDelete.addEventListener('click', deleteVisBlock);
-    return btnDelete;
 }
 
 function  deleteVisBlock(e) {
     e.path[1].style.display = "none";
        if( e.path[1].style.display == "none"){
         e.path[2].removeChild(e.path[1]);
-       }
+    }
 }
+
