@@ -17,17 +17,14 @@ function getCards() {
         cards = [];
     } else {
         cards = JSON.parse(localStorage.getItem('cards'))
-        document.querySelector(".main-block span").style.display = "none";
+
     }
     cards.forEach(function (item) {
         const createdElem = document.createElement("ul");
         createdElem.setAttribute("id", `${idCard++}`);
         if(item != undefined){
-        
-        
         createdElem.classList.add("created-elements");
         mainBlock.appendChild(createdElem);
-
         for (let [key, value] of Object.entries(item)) {
             const li = document.createElement('li');
             li.innerHTML = `${value}`
@@ -45,6 +42,9 @@ function getCards() {
         createdElem.style.display = "flex";
         }
     })
+    if(mainBlock.children.length>=2){
+    document.querySelector(".main-block span").style.display = "none";
+    }
 }
 
 // Events
@@ -233,12 +233,7 @@ function deleteVisBlock(e) {
         temp.push(e.path[1].children[i].textContent);
     }
     console.dir(e);
-    debugger;
     delete allCards[e.path[1].id];
-    // allCards.splice(0,1);
-    // if (e.path[1].style.display == "none") {
-    //     e.path[2].removeChild(e.path[1]);
-    // }
     localStorage.setItem("cards" ,  JSON.stringify(allCards));
     document.location.reload(true);
 }
