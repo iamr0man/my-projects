@@ -192,6 +192,9 @@ textarea {
     resize: none;
     width: 80%;
 }
+.eror-msg::placeholder{
+    color: red;
+}
 
 @keyframes modalopen {
     from {

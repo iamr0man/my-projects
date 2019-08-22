@@ -7,7 +7,11 @@ const closeBtn = document.querySelector('.close');
 const createBtn = document.querySelector('.modal-footer button');
 const mainBlock = document.querySelector('.main-block');
 let btnShowMore;
-let idCard=0
+let idCard=0;
+let index = 0;
+const listOfDoctor = document.getElementById('list-of-doctors');
+const listOfInputs = document.getElementById('form-inputs');
+
 
 document.addEventListener('DOMContentLoaded', getCards);
 
@@ -51,10 +55,15 @@ function getCards() {
 modalBtn.addEventListener('click', openModal);
 closeBtn.addEventListener('click', closeModal);
 window.addEventListener('click', outsideClick);
-createBtn.addEventListener('click', createVisit);
+createBtn.addEventListener('click', checkInput);
+
+
+
+
 // Open
 function openModal() {
     modal.style.display = 'block';
+
 }
 
 // Close
@@ -69,8 +78,6 @@ function outsideClick(e) {
     }
 }
 
-const listOfDoctor = document.getElementById('list-of-doctors');
-const listOfInputs = document.getElementById('form-inputs');
 
 class Visit {
     constructor(target, date, fullName) {
@@ -133,7 +140,6 @@ class VisitToTherapist extends Visit {
 
 function storeCardInLocalStorage(card) {
     let cards;
-    let itemIndex=0;
     if (localStorage.getItem('cards') === null) {
         cards = [];
     } else {
@@ -147,26 +153,31 @@ function storeCardInLocalStorage(card) {
 
     cards.push(temp);
     localStorage.setItem('cards', JSON.stringify(cards))
-    // localStorage.setItem(`temp-${itemIndex}`, JSON.stringify(temp))
-    itemIndex++;
 }
 
-let index = 0;
 
+function checkInput(){
+    for (let k = 0; k < listOfInputs.children[index].children.length; k++) {
+        if(listOfInputs.children[index].children[k].value !="" && listOfInputs.children[index].children[k].value != undefined){
+            return createVisit();
+        }
+        else{listOfInputs.children[index].children[k].classList.add("eror-msg");
+    }
+    
+}
+}
 function createVisit() {
-    closeModal();
-    document.querySelector(".main-block span").style.display = "none";
-
+for (let k = 0; k < listOfInputs.children[index].children.length; k++) {
+    if(listOfInputs.children[index].children[k].value !="" && listOfInputs.children[index].children[k].value != undefined){
     const arr = [];
     let item = '';
-
     for (let i = 0; i < listOfInputs.children.length; i++) {
         if (listOfInputs.children[i].style.display == "block") {
             for (let k = 0; k < listOfInputs.children[i].children.length; k++) {
-                arr.push(listOfInputs.children[i].children[k].value)
+                    arr.push(listOfInputs.children[i].children[k].value)
+                }
             }
         }
-    }
     if (index === 0) {
         item = new VisitToCardiologist(...arr);
     } else if (index === 1) {
@@ -179,12 +190,18 @@ function createVisit() {
     });
 
     item.addCard();
+    closeModal();
+    document.querySelector(".main-block span").style.display = "none";
     clearInputs();
+    }
+}
 }
 
 function clearInputs() {
     for (let i = 0; i < listOfInputs.children[index].children.length; i++) {
+        debugger
         listOfInputs.children[index].children[i].value = '';
+        listOfInputs.children[index].children[i].classList.remove("eror-msg");
     }
 }
 
