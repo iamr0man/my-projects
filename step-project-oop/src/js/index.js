@@ -1,3 +1,5 @@
+// import { unlink } from "fs";
+
 // Get DOM Elements
 const modal = document.querySelector('#visit-modal');
 const modalBtn = document.querySelector('#modal-btn');
@@ -5,6 +7,7 @@ const closeBtn = document.querySelector('.close');
 const createBtn = document.querySelector('.modal-footer button');
 const mainBlock = document.querySelector('.main-block');
 let btnShowMore;
+let idCard=0
 
 document.addEventListener('DOMContentLoaded', getCards);
 
@@ -14,14 +17,14 @@ function getCards() {
         cards = [];
     } else {
         cards = JSON.parse(localStorage.getItem('cards'))
-        document.querySelector(".main-block span").style.display = "none";
+
     }
     cards.forEach(function (item) {
         const createdElem = document.createElement("ul");
-
+        createdElem.setAttribute("id", `${idCard++}`);
+        if(item != undefined){
         createdElem.classList.add("created-elements");
         mainBlock.appendChild(createdElem);
-
         for (let [key, value] of Object.entries(item)) {
             const li = document.createElement('li');
             li.innerHTML = `${value}`
@@ -37,7 +40,11 @@ function getCards() {
         createdElem.appendChild(delBtn);
 
         createdElem.style.display = "flex";
+        }
     })
+    if(mainBlock.children.length>=2){
+    document.querySelector(".main-block span").style.display = "none";
+    }
 }
 
 // Events
@@ -74,6 +81,7 @@ class Visit {
 
     addCard() {
         const createdElem = document.createElement("ul");
+        createdElem.setAttribute("id", `${idCard++}`);
 
         createdElem.classList.add("created-elements");
         mainBlock.appendChild(createdElem);
@@ -125,6 +133,7 @@ class VisitToTherapist extends Visit {
 
 function storeCardInLocalStorage(card) {
     let cards;
+    let itemIndex=0;
     if (localStorage.getItem('cards') === null) {
         cards = [];
     } else {
@@ -138,6 +147,8 @@ function storeCardInLocalStorage(card) {
 
     cards.push(temp);
     localStorage.setItem('cards', JSON.stringify(cards))
+    // localStorage.setItem(`temp-${itemIndex}`, JSON.stringify(temp))
+    itemIndex++;
 }
 
 let index = 0;
@@ -215,19 +226,14 @@ function deleteVisit() {
 
 function deleteVisBlock(e) {
     e.path[1].style.display = "none";
+
     const allCards = JSON.parse(localStorage.getItem("cards"));
     const temp = [];
     for(let i =0; i < e.path[1].children.length; i++){
         temp.push(e.path[1].children[i].textContent);
     }
-    // debugger;
-    const current = allCards.filter((item, i) => {
-        JSON.stringify(item) === JSON.stringify(temp.slice(0, -2))
-        return i;
-    })
-
-    // if (e.path[1].style.display == "none") {
-    //     e.path[2].removeChild(e.path[1]);
-    // }
+    console.dir(e);
+    delete allCards[e.path[1].id];
+    localStorage.setItem("cards" ,  JSON.stringify(allCards));
     document.location.reload(true);
 }
