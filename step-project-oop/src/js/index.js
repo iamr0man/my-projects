@@ -116,7 +116,7 @@ class VisitToCardiologist extends Visit {
         this.iWeight = iWeight;
         this.diseases = diseases;
         this.age = age;
-        this.position = "Кардиолог"
+        this.position = "Cardiologist"
         this.id = 0;
     }
 }
@@ -125,7 +125,7 @@ class VisitToDentist extends Visit {
     constructor(target, date, fullName, dateLastVist) {
         super(target, date, fullName);
         this.dateLastVist = dateLastVist;
-        this.position = "Дантист"
+        this.position = "Dentist"
         this.id = 1;
     }
 }
@@ -134,7 +134,7 @@ class VisitToTherapist extends Visit {
     constructor(target, date, fullName, age) {
         super(target, date, fullName);
         this.age = age;
-        this.position = "Терапевт"
+        this.position = "Therapist"
         this.id = 2;
     }
 }
