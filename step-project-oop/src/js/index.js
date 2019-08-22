@@ -1,5 +1,3 @@
-// import { unlink } from "fs";
-
 // Get DOM Elements
 const modal = document.querySelector('#visit-modal');
 const modalBtn = document.querySelector('#modal-btn');
@@ -7,7 +5,7 @@ const closeBtn = document.querySelector('.close');
 const createBtn = document.querySelector('.modal-footer button');
 const mainBlock = document.querySelector('.main-block');
 let btnShowMore;
-let idCard=0;
+let idCard = 0;
 let index = 0;
 const listOfDoctor = document.getElementById('list-of-doctors');
 const listOfInputs = document.getElementById('form-inputs');
@@ -21,33 +19,34 @@ function getCards() {
         cards = [];
     } else {
         cards = JSON.parse(localStorage.getItem('cards'))
-
     }
     cards.forEach(function (item) {
         const createdElem = document.createElement("ul");
         createdElem.setAttribute("id", `${idCard++}`);
-        if(item != undefined){
-        createdElem.classList.add("created-elements");
-        mainBlock.appendChild(createdElem);
-        for (let [key, value] of Object.entries(item)) {
-            const li = document.createElement('li');
-            li.innerHTML = `${value}`
-            createdElem.appendChild(li);
-        }
+        if (item != undefined) {
+            createdElem.classList.add("created-elements");
+            mainBlock.appendChild(createdElem);
+            for (let [key, value] of Object.entries(item.slice(0, -2))) {
+                const li = document.createElement('li');
+                li.innerHTML = `${value}`
+                createdElem.appendChild(li);
+            }
+            debugger
+            let child = createdElem.children;
+            child[2].style.display = 'block'; // show full name
+            child[child.length - 1].style.display = 'block'; // show full name
 
-        createdElem.children[2].style.display = 'block'; // show full name
+            const btn = addBtnShowMore();
+            createdElem.appendChild(btn);
 
-        const btn = addBtnShowMore();
-        createdElem.appendChild(btn);
+            const delBtn = deleteVisit();
+            createdElem.appendChild(delBtn);
 
-        const delBtn = deleteVisit();
-        createdElem.appendChild(delBtn);
-
-        createdElem.style.display = "flex";
+            createdElem.style.display = "flex";
         }
     })
-    if(mainBlock.children.length>=2){
-    document.querySelector(".main-block span").style.display = "none";
+    if (mainBlock.children.length >= 2) {
+        document.querySelector(".main-block span").style.display = "none";
     }
 }
 
@@ -57,13 +56,9 @@ closeBtn.addEventListener('click', closeModal);
 window.addEventListener('click', outsideClick);
 createBtn.addEventListener('click', checkInput);
 
-
-
-
 // Open
 function openModal() {
     modal.style.display = 'block';
-
 }
 
 // Close
@@ -92,21 +87,24 @@ class Visit {
 
         createdElem.classList.add("created-elements");
         mainBlock.appendChild(createdElem);
-
+        debugger;
         for (let [key, value] of Object.entries(this)) {
             const li = document.createElement('li');
             li.innerHTML = `${key}: ${value}`
             createdElem.appendChild(li);
         }
-        createdElem.children[2].style.display = 'block'; // show full name
+        let child = createdElem.children;
+        child[2].style.display = 'block'; // show full name
+        debugger;
+        child[child.length - 1].style.display = 'block'; // show full name
 
         const btn = addBtnShowMore();
         createdElem.appendChild(btn);
-        
+
         const delBtn = deleteVisit();
         createdElem.appendChild(delBtn);
         createdElem.style.display = "flex";
-        
+
         storeCardInLocalStorage(createdElem.children);
     }
 }
@@ -118,6 +116,7 @@ class VisitToCardiologist extends Visit {
         this.iWeight = iWeight;
         this.diseases = diseases;
         this.age = age;
+        this.position = "Кардиолог"
         this.id = 0;
     }
 }
@@ -126,6 +125,7 @@ class VisitToDentist extends Visit {
     constructor(target, date, fullName, dateLastVist) {
         super(target, date, fullName);
         this.dateLastVist = dateLastVist;
+        this.position = "Дантист"
         this.id = 1;
     }
 }
@@ -134,6 +134,7 @@ class VisitToTherapist extends Visit {
     constructor(target, date, fullName, age) {
         super(target, date, fullName);
         this.age = age;
+        this.position = "Терапевт"
         this.id = 2;
     }
 }
@@ -156,45 +157,42 @@ function storeCardInLocalStorage(card) {
 }
 
 
-function checkInput(){
+function checkInput() {
     for (let k = 0; k < listOfInputs.children[index].children.length; k++) {
-        if(listOfInputs.children[index].children[k].value !="" && listOfInputs.children[index].children[k].value != undefined){
+        if (listOfInputs.children[index].children[k].value != "" && listOfInputs.children[index].children[k].value != undefined) {
             return createVisit();
+        } else {
+            listOfInputs.children[index].children[k].classList.add("eror-msg");
         }
-        else{listOfInputs.children[index].children[k].classList.add("eror-msg");
     }
-    
 }
-}
+
 function createVisit() {
-for (let k = 0; k < listOfInputs.children[index].children.length; k++) {
-    if(listOfInputs.children[index].children[k].value !="" && listOfInputs.children[index].children[k].value != undefined){
     const arr = [];
     let item = '';
     for (let i = 0; i < listOfInputs.children.length; i++) {
         if (listOfInputs.children[i].style.display == "block") {
             for (let k = 0; k < listOfInputs.children[i].children.length; k++) {
-                    arr.push(listOfInputs.children[i].children[k].value)
-                }
+                arr.push(listOfInputs.children[i].children[k].value)
             }
-        }
-    if (index === 0) {
-        item = new VisitToCardiologist(...arr);
-    } else if (index === 1) {
-        item = new VisitToDentist(...arr);
-    } else {
-        item = new VisitToTherapist(...arr);
-    }
-    Object.defineProperty(item, 'id', {
-        enumerable: false
-    });
 
-    item.addCard();
-    closeModal();
-    document.querySelector(".main-block span").style.display = "none";
-    clearInputs();
+            if (index === 0) {
+                item = new VisitToCardiologist(...arr);
+            } else if (index === 1) {
+                item = new VisitToDentist(...arr);
+            } else {
+                item = new VisitToTherapist(...arr);
+            }
+            Object.defineProperty(item, 'id', {
+                enumerable: false
+            });
+
+            item.addCard();
+            closeModal();
+            document.querySelector(".main-block span").style.display = "none";
+            clearInputs();
+        }
     }
-}
 }
 
 function clearInputs() {
@@ -246,11 +244,10 @@ function deleteVisBlock(e) {
 
     const allCards = JSON.parse(localStorage.getItem("cards"));
     const temp = [];
-    for(let i =0; i < e.path[1].children.length; i++){
+    for (let i = 0; i < e.path[1].children.length; i++) {
         temp.push(e.path[1].children[i].textContent);
     }
-    console.dir(e);
     delete allCards[e.path[1].id];
-    localStorage.setItem("cards" ,  JSON.stringify(allCards));
+    localStorage.setItem("cards", JSON.stringify(allCards));
     document.location.reload(true);
 }
