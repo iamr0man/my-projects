@@ -4,6 +4,7 @@ const modalBtn = document.querySelector('#modal-btn');
 const closeBtn = document.querySelector('.close');
 const createBtn = document.querySelector('.modal-footer button');
 const mainBlock = document.querySelector('.main-block');
+const clearAllBtn = document.querySelector('.clearAll')
 let btnShowMore;
 let idCard = 0;
 let index = 0;
@@ -31,7 +32,7 @@ function getCards() {
                 li.innerHTML = `${value}`
                 createdElem.appendChild(li);
             }
-            debugger
+            
             let child = createdElem.children;
             child[2].style.display = 'block'; // show full name
             child[child.length - 1].style.display = 'block'; // show full name
@@ -45,7 +46,7 @@ function getCards() {
             createdElem.style.display = "flex";
         }
     })
-    if (mainBlock.children.length >= 2) {
+    if (mainBlock.children.length >= 3) {
         document.querySelector(".main-block span").style.display = "none";
     }
 }
@@ -55,6 +56,7 @@ modalBtn.addEventListener('click', openModal);
 closeBtn.addEventListener('click', closeModal);
 window.addEventListener('click', outsideClick);
 createBtn.addEventListener('click', checkInput);
+clearAllBtn.addEventListener('click',clearAll);
 
 // Open
 function openModal() {
@@ -84,10 +86,11 @@ class Visit {
     addCard() {
         const createdElem = document.createElement("ul");
         createdElem.setAttribute("id", `${idCard++}`);
+        createdElem.setAttribute("draggable", "true");
 
         createdElem.classList.add("created-elements");
         mainBlock.appendChild(createdElem);
-        debugger;
+        ;
         for (let [key, value] of Object.entries(this)) {
             const li = document.createElement('li');
             li.innerHTML = `${key}: ${value}`
@@ -95,7 +98,7 @@ class Visit {
         }
         let child = createdElem.children;
         child[2].style.display = 'block'; // show full name
-        debugger;
+        ;
         child[child.length - 1].style.display = 'block'; // show full name
 
         const btn = addBtnShowMore();
@@ -158,12 +161,19 @@ function storeCardInLocalStorage(card) {
 
 
 function checkInput() {
-    for (let k = 0; k < listOfInputs.children[index].children.length; k++) {
-        if (listOfInputs.children[index].children[k].value != "" && listOfInputs.children[index].children[k].value != undefined) {
-            return createVisit();
-        } else {
-            listOfInputs.children[index].children[k].classList.add("eror-msg");
+    let valueOfInput =listOfInputs.children[index];
+    if(mainBlock.children.length<11){
+        for (let k = 0; k < valueOfInput.children.length; k++) {
+            if (valueOfInput.children[k].value != "" && valueOfInput.children[k].value != undefined) {
+                if(k==valueOfInput.children.length-2){
+                    return createVisit();
+                }    
+            } else {
+                valueOfInput.children[k].classList.add("eror-msg");
+            }
         }
+    }else {
+        createBtn.disabled = "true";
     }
 }
 
@@ -197,7 +207,7 @@ function createVisit() {
 
 function clearInputs() {
     for (let i = 0; i < listOfInputs.children[index].children.length; i++) {
-        debugger
+        
         listOfInputs.children[index].children[i].value = '';
         listOfInputs.children[index].children[i].classList.remove("eror-msg");
     }
@@ -251,3 +261,57 @@ function deleteVisBlock(e) {
     localStorage.setItem("cards", JSON.stringify(allCards));
     document.location.reload(true);
 }
+
+function clearAll(){
+    localStorage.removeItem("cards");
+    document.location.reload(true);
+}
+
+
+document.addEventListener("mouseover", (elem)=>{
+    if(elem.path[0].className == "created-elements" ){
+        card = elem.path[0];
+        card.onmousedown = function(e) { // 1. отследить нажатие
+            console.log(e);
+            card.style.position = 'absolute';
+            moveAt(e);
+
+
+            mainBlock.appendChild(card);
+          
+            card.style.zIndex = 1000; 
+
+            function moveAt(e) {
+                if(e.screenY < 430){
+                    card.style.top == 435 +'px';
+                }else if(e.screenY > 935){
+                    card.style.top == 932 +'px';
+                }
+                else{
+                    card.style.top = e.pageY - 380 + 'px';
+                }
+
+                if(e.screenX < 530){
+                    card.style.left == 540 + "px";
+                }else if(e.screenX> 1102 ){
+                    card.style.left == 1100 + "px";
+                }
+                else{
+                    card.style.left = e.pageX - 530 + 'px';
+                }
+            }
+
+            document.onmousemove = function(e) {
+              moveAt(e);
+            }
+          
+            card.onmouseup = function() {
+              document.onmousemove = null;
+              card.onmouseup = null;
+            }
+        }
+    }
+    })
+
+
+
