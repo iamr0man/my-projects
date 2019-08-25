@@ -35,8 +35,16 @@ function getCards() {
         
     
         if (item != undefined) {
-            createdElem.style.top = (`${positions[idCard][0]}` ) // ecли нет, то задать значение 0 !!!!!! доделать
-            createdElem.style.left = (`${positions[idCard][1]}`) // ecли нет, то задать значение 0 !!!!!! доделать
+            if(!!`${positions[idCard][0]}`){
+                createdElem.style.top = (`${positions[idCard][0]}` )
+            }else{
+                createdElem.style.top = 0; 
+            }
+            if(!!`${positions[idCard][1]}`){
+                createdElem.style.left = (`${positions[idCard][1]}` )
+            }else{
+                createdElem.style.left = 0;
+            }
             createdElem.setAttribute("id", `${idCard++}`);
             createdElem.classList.add("created-elements");
             mainBlock.appendChild(createdElem);
@@ -99,7 +107,6 @@ class Visit {
     addCard() {
         const createdElem = document.createElement("ul");
         createdElem.setAttribute("id", `${idCard++}`);
-        createdElem.setAttribute("draggable", "true");
 
         createdElem.classList.add("created-elements");
         mainBlock.appendChild(createdElem);
