@@ -35,12 +35,12 @@ function getCards() {
         
     
         if (item != undefined) {
-            if(!!`${positions[idCard][0]}`){
+            if(positions[idCard] != undefined){
                 createdElem.style.top = (`${positions[idCard][0]}` )
             }else{
                 createdElem.style.top = 0; 
             }
-            if(!!`${positions[idCard][1]}`){
+            if(positions[idCard] !== undefined){
                 createdElem.style.left = (`${positions[idCard][1]}` )
             }else{
                 createdElem.style.left = 0;
