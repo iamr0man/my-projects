@@ -16,15 +16,28 @@ document.addEventListener('DOMContentLoaded', getCards);
 
 function getCards() {
     let cards;
+    let positions;
+
+    if (localStorage.getItem('positions') === null) {
+        positions = [];
+    } else {
+        positions = JSON.parse(localStorage.getItem('positions'))
+    }
+
     if (localStorage.getItem('cards') === null) {
         cards = [];
     } else {
         cards = JSON.parse(localStorage.getItem('cards'))
     }
+
     cards.forEach(function (item) {
         const createdElem = document.createElement("ul");
-        createdElem.setAttribute("id", `${idCard++}`);
+        
+    
         if (item != undefined) {
+            createdElem.style.top = (`${positions[idCard][0]}` ) // ecли нет, то задать значение 0 !!!!!! доделать
+            createdElem.style.left = (`${positions[idCard][1]}`) // ecли нет, то задать значение 0 !!!!!! доделать
+            createdElem.setAttribute("id", `${idCard++}`);
             createdElem.classList.add("created-elements");
             mainBlock.appendChild(createdElem);
             for (let [key, value] of Object.entries(item.slice(0, -2))) {
@@ -98,7 +111,7 @@ class Visit {
         }
         let child = createdElem.children;
         child[2].style.display = 'block'; // show full name
-        ;
+        
         child[child.length - 1].style.display = 'block'; // show full name
 
         const btn = addBtnShowMore();
@@ -259,17 +272,32 @@ function deleteVisBlock(e) {
     }
     delete allCards[e.path[1].id];
     localStorage.setItem("cards", JSON.stringify(allCards));
+
+    const positions = JSON.parse(localStorage.getItem("positions"));
+    const tempPos = [];
+    for (let i = 0; i < e.path[1].children.length; i++) {
+        tempPos.push(e.path[1].children[i].textContent);
+    }
+    delete positions[e.path[1].id];
+    localStorage.setItem("positions", JSON.stringify(positions));
+
+
     document.location.reload(true);
 }
 
 function clearAll(){
     localStorage.removeItem("cards");
+    localStorage.removeItem("positions");
+
     document.location.reload(true);
 }
 
 
-document.addEventListener("mouseover", (elem)=>{
-    if(elem.path[0].className == "created-elements" ){
+document.addEventListener("click", (elem)=>{
+     if(elem.path[0].id == "show-more" ){
+        showMore(elem);
+    }
+    else if(elem.path[0].className == "created-elements" ){
         card = elem.path[0];
         card.onmousedown = function(e) { // 1. отследить нажатие
             console.log(e);
@@ -277,35 +305,20 @@ document.addEventListener("mouseover", (elem)=>{
             moveAt(e);
 
 
+
             mainBlock.appendChild(card);
           
             card.style.zIndex = 1000; 
 
-            function moveAt(e) {
-                if(e.screenY < 430){
-                    card.style.top == 435 +'px';
-                }else if(e.screenY > 935){
-                    card.style.top == 932 +'px';
-                }
-                else{
-                    card.style.top = e.pageY - 380 + 'px';
-                }
-
-                if(e.screenX < 530){
-                    card.style.left == 540 + "px";
-                }else if(e.screenX> 1102 ){
-                    card.style.left == 1100 + "px";
-                }
-                else{
-                    card.style.left = e.pageX - 530 + 'px';
-                }
-            }
+            
 
             document.onmousemove = function(e) {
               moveAt(e);
             }
           
             card.onmouseup = function() {
+              savePosition(card)
+              card.onmousedown = null;
               document.onmousemove = null;
               card.onmouseup = null;
             }
@@ -314,4 +327,41 @@ document.addEventListener("mouseover", (elem)=>{
     })
 
 
+    function moveAt(e) {
+        if(e.screenY < 430){
+            card.style.top == 435 +'px';
+        }else if(e.screenY > 935){
+            card.style.top == 932 +'px';
+        }
+        else{
+            card.style.top = e.pageY - 380 + 'px';
+        }
 
+        if(e.screenX < 530){
+            card.style.left == 540 + "px";
+        }else if(e.screenX> 1102 ){
+            card.style.left == 1100 + "px";
+        }
+        else{
+            card.style.left = e.pageX - 530 + 'px';
+        }
+    }
+
+    function savePosition(e){
+        let positions;
+    if (localStorage.getItem('positions') === null) {
+        positions = [];
+    } else {
+        positions = JSON.parse(localStorage.getItem('positions'))
+    }
+
+
+    const temp = [];
+
+        temp.push(e.style.top);
+        temp.push(e.style.left);
+
+    positions.splice(e.id,1,temp);
+    localStorage.setItem('positions', JSON.stringify(positions))
+
+    }

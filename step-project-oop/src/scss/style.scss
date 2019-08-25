@@ -165,7 +165,9 @@ body{
 
     .modal-body {
         padding: 20px 20px;
-        background: #fff;
+        background-image: url(../img/modal-bg.png);
+        background-repeat: no-repeat;
+        background-size: cover;
 
         #form-inputs {
             margin: 20px 0;
