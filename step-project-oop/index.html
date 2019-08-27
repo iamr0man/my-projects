@@ -13,7 +13,7 @@
     <div class="wrapper">
         <a href="#" class="logo"></a>
         <div id="modal-btn"><span>create visit</span></div>
-        <div class="main-block">
+        <div class="main-block"  onselectstart="return false">
             <div class="clearAll"></div>
             <span>no items have been added</span>
         </div>
@@ -23,7 +23,7 @@
                     <h2>Create Visit</h2>
                     <span class="close">&times;</span>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" >
                     <form action="">
                         <select name="doctors" id="list-of-doctors">
                             <option selected disabled>Choose doctor</option>
@@ -47,7 +47,7 @@
                             <input type="text" id="target" placeholder="Target">
                             <input type="date" id="date" placeholder="Date">
                             <input type="text" id="fullName" placeholder="Full Name">
-                            <input type="date" id="dataLastVisit" placeholder="Last Visit">
+                            <input type="text" id="dataLastVisit" placeholder="Last Visit">
                             <textarea name="" id="" cols="50" rows="10" maxlength="400"
                                 placeholder="Add Comments"></textarea>
                         </li>
