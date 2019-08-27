@@ -70,6 +70,7 @@ function getCards() {
     if (mainBlock.children.length >= 3) {
         document.querySelector(".main-block span").style.display = "none";
     }
+    findCard();
 }
 
 // Events
@@ -249,7 +250,7 @@ function addBtnShowMore() {
     btnShowMore = document.createElement('p');
     btnShowMore.setAttribute('id', 'show-more')
     btnShowMore.innerText = "Show More";
-    btnShowMore.addEventListener('click', showMore);
+    btnShowMore.addEventListener('mousedown', showMore);
     return btnShowMore;
 }
 
@@ -271,6 +272,7 @@ function deleteVisit() {
 
 function deleteVisBlock(e) {
     e.path[1].style.display = "none";
+
 
     const allCards = JSON.parse(localStorage.getItem("cards"));
     const temp = [];
@@ -300,75 +302,85 @@ function clearAll(){
 }
 
 
-document.addEventListener("click", (elem)=>{
-     if(elem.path[0].id == "show-more" ){
-        showMore(elem);
+function findCard() {
+    if (document.querySelectorAll('.created-elements').length) {
+        document.querySelectorAll('.created-elements').forEach((item) => {
+            makeDragonDrop(item);
+        })
     }
-    else if(elem.path[0].className == "created-elements" ){
-        card = elem.path[0];
-        card.onmousedown = function(e) { // 1. отследить нажатие
-            console.log(e);
-            card.style.position = 'absolute';
-            moveAt(e);
+}
 
+function makeDragonDrop(cardTarget) {
+    let card = cardTarget;
+    let cord = card.getBoundingClientRect();
+    let dek = mainBlock.getBoundingClientRect();
 
-
-            mainBlock.appendChild(card);
-          
-            card.style.zIndex = 1000; 
-
+    card.onmousedown = function(e) { 
+                    
+                    card.style.position = 'absolute';
+                    moveAt(e);
+        
+                    mainBlock.appendChild(card);
+                  
+                    card.style.zIndex = 1000; 
+        
+                    document.onmousemove = function(e) {
+                      moveAt(e);
+                    }
+                  
+                    card.onmouseup = function() {
+                      savePosition(card)
+                  
+                      document.onmousemove = null;
+                  
+                    }
+                }
             
+        
 
-            document.onmousemove = function(e) {
-              moveAt(e);
+            function moveAt(e) {
+
+
+
+
+                
+                let cord = card.getBoundingClientRect();
+                let dek = mainBlock.getBoundingClientRect();
+                console.log(dek)
+                if(e.screenY < dek.y *2 - cord.height/6){
+                    card.style.top == dek.y * 2 +'px';
+                }else if(e.screenY >dek.y + dek.width - cord.height/2){
+                    card.style.top == dek.y + dek.widt - cord.height +'px';
+                }
+                else{
+                    card.style.top =  e.clientY - dek.top - cord.height/2 -70  + 'px';
+
+                }
+        
+                if(e.screenX < dek.x + cord.width/2){
+                    card.style.left == dek.x   + "px";
+                }else if(e.screenX> dek.x + dek.width - cord.width/2 ){
+                    card.style.left == dek.x + dek.width - cord.width/2  + "px";
+                }
+                else{
+                    card.style.left = e.clientX -  dek.left - cord.width/2 -35 + 'px';
+                }
             }
-          
-            card.onmouseup = function() {
-              savePosition(card)
-              card.onmousedown = null;
-              document.onmousemove = null;
-              card.onmouseup = null;
+        
+            function savePosition(e){
+                let positions;
+            if (localStorage.getItem('positions') === null) {
+                positions = [];
+            } else {
+                positions = JSON.parse(localStorage.getItem('positions'))
             }
-        }
-    }
-    })
-
-
-    function moveAt(e) {
-        if(e.screenY < 430){
-            card.style.top == 435 +'px';
-        }else if(e.screenY > 935){
-            card.style.top == 932 +'px';
-        }
-        else{
-            card.style.top = e.pageY - 380 + 'px';
-        }
-
-        if(e.screenX < 530){
-            card.style.left == 540 + "px";
-        }else if(e.screenX> 1102 ){
-            card.style.left == 1100 + "px";
-        }
-        else{
-            card.style.left = e.pageX - 530 + 'px';
-        }
-    }
-
-    function savePosition(e){
-        let positions;
-    if (localStorage.getItem('positions') === null) {
-        positions = [];
-    } else {
-        positions = JSON.parse(localStorage.getItem('positions'))
-    }
-
-
-    const temp = [];
-
-        temp.push(e.style.top);
-        temp.push(e.style.left);
-
-    positions.splice(e.id,1,temp);
-    localStorage.setItem('positions', JSON.stringify(positions))
-
-    }
+            const temp = [];
+        
+                temp.push(e.style.top);
+                temp.push(e.style.left);
+        
+            positions.splice(e.id,1,temp);
+            localStorage.setItem('positions', JSON.stringify(positions))
+        
+            }
+}
