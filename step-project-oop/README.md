@@ -1,8 +1,8 @@
-Step-Project-OOP<br>
+## Step-Project-OOP<br>
 Vladyslav Udovenko (udaff1998@icloud.com)
 Roman Korniienko (koriny4@gmail.com)
 
-##Features:
+## Features:
 
 *preprocess sass/scss<br>
 *task-manager gulp<br>
@@ -18,7 +18,7 @@ Roman Korniienko (koriny4@gmail.com)
 *LocalStorage<br>
 
 
-##Tasks:
+## Tasks:
 
 Student Vladyslav Udovenko:<br>
 *make delete button in cards<br>
@@ -40,7 +40,7 @@ Student Roman Korniienko:<br>
 *add method read/show from LocalStorage<br>
 *refactoring code<br>
 
-##Instruction:<br>
+## Instruction:<br>
 Instaletion Gulp:<br>
 
 *npm i<br>
@@ -48,7 +48,7 @@ Instaletion Gulp:<br>
 *gulp dev - create project and start it<br>
 *gulp watch - start project<br>
 
-Using Project: 
+## Using Project: 
 
 *Create Visit - open modal with 3 varients<br>
 *after Create Visit, button create - create card (max 9)<br>
